@@ -24,8 +24,21 @@ struct Node *Create(unsigned int Size)
         pPrevOne=pOne;
         pOne=(struct Node*)malloc(sizeof(struct Node));
         pPrevOne->next=pOne;
+        pOne->next=NULL;
     }
     return pHead;
+}
+
+void RemoveAll(struct Node *list)
+{
+    node *pPrevOne=NULL,*pOne=NULL;
+    pOne=list;
+    while(pOne->next!=NULL)
+    {
+        pPrevOne=pOne;
+        pOne=pOne->next;
+        free(pPrevOne);
+    }
 }
 
 int main(int argc,char*argv[])
@@ -35,7 +48,7 @@ int main(int argc,char*argv[])
     cout<<"请输入链表长度：";
     cin>>size;
     cout<<"请依次输入链表的值：";
-    linklistpHead=Create(5);
+    linklistpHead=Create(size);
     iter=linklistpHead;
     for(int i=0;i<size;i++)
     {
@@ -49,5 +62,6 @@ int main(int argc,char*argv[])
         cout<<iter->a<<setw(5);
         iter=iter->next;
     }
+    RemoveAll(linklistpHead);
     return 0;
 }
